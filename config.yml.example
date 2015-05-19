@@ -3,6 +3,8 @@ irc:
     server: "irc.freenode.org"
     port: 6667
     nick: GitBot
+    user: gitbot
+    realname: GitBot
 
     # Here you can specify the channels that GitBot will join
     channels: 

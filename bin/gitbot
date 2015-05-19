@@ -18,8 +18,8 @@ $config = YAML.load_file config_file
 $bot = Cinch::Bot.new do
   configure do |c|
     c.nick = $config["irc"]["nick"]
-    c.user = "gitbot"
-    c.realname = "GitBot"
+    c.user = $config["irc"]["user"]
+    c.realname = $config["irc"]["realname"]
     c.server = $config["irc"]["server"]
     c.port = $config["irc"]["port"]
     c.channels = $config["irc"]["channels"]
