@@ -25,7 +25,7 @@ function commits {
   log=`git log --pretty="format:%h%n%an%n%ae%n%at%n%s" $oldrev..$newrev | tr '\n' '|'`
   IFS="|"
   arr=( $log )
-  
+
   # TODO: get creations/deletions from --shortstat
 
   first=1
@@ -47,7 +47,7 @@ function commits {
         \"email\": \"${arr[i+2]}\"
       }
     }"
-    
+
     first=0
   done
 

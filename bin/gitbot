@@ -95,7 +95,7 @@ post "/github" do
     rescue ArgumentError
       tb = Time.at(b["timestamp"].to_i)
     end
-    
+
     ta <=> tb
   end
 
@@ -111,7 +111,7 @@ post "/github" do
     else
       message1 = message
     end
-                    
+
     say repo, get_repo(repo) + "/" + get_branch(branch) + " " + get_commit + " " + get_cauthor + ": #{message1}"
   end
 

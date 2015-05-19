@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/thedjinn/gitbot}
   s.summary = %q{An IRC bot that listens to GitHub webhooks}
   s.description = %q{An IRC bot that listens to GitHub webhooks}
- 
+
   #s.rubyforge_project = "gitbot"
 
   s.files         = `git ls-files`.split("\n")
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<cinch>, ["~> 2.0.0"])
   s.add_runtime_dependency(%q<sinatra>, ["~> 1.1.0"])
   s.add_runtime_dependency(%q<json>, [">= 0"])
-  
+
   s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
 
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.1")

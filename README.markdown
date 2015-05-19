@@ -1,4 +1,4 @@
-GitBot is a Ruby IRC bot that provides a builtin GitHub webhook server. 
+GitBot is a Ruby IRC bot that provides a builtin GitHub webhook server.
 
 Installation
 ============
@@ -16,7 +16,7 @@ Usage
 
 * After that just run `gitbot` in the directory where the config file is located. This will start the bot and its built-in webhook server. Alternatively, you can specify a different location for the config file with `gitbot [config_file]`.
 
-* You can now add a webhook to a GitHub project. Use the following url: `http://yourserver.com:5651/github`. You can specify a different port in the config file if you want. 
+* You can now add a webhook to a GitHub project. Use the following url: `http://yourserver.com:5651/github`. You can specify a different port in the config file if you want.
 
 * Now do some commits and see the commit messages appearing on the IRC channel.
 
