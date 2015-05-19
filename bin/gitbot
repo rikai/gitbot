@@ -45,7 +45,7 @@ end
 
 def get_repo(repo)
   Cinch::Formatting.format(:green, "#{repo}")
-  end
+end
 
 def get_author(author)
   Cinch::Formatting.format(:silver, "#{author}")
