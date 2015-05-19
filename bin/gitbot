@@ -75,6 +75,11 @@ get "/" do
 end
 
 post "/github" do
+  request.body.rewind
+
+  ## Update this later as per https://developer.github.com/webhooks/securing/
+  return halt 500, "Signatures didn't match!" unless request.env['HTTP_X_HUB_SIGNATURE'] == ('sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), ENV['GITHUB_VERIFIER_SECRET'], request.body.read))
+
   p params[:payload]
   push = JSON.parse(params[:payload])
 
