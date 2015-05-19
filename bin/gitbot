@@ -33,6 +33,8 @@ Thread.new do
   $bot.start
 end
 
+Dotenv.load
+
 def say(repo,msg)
   $config["irc"]["channels"].each do |chan|
     unless $config["filters"].include? chan and not $config["filters"][chan].include? repo
