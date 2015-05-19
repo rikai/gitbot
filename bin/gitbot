@@ -63,7 +63,6 @@ def get_cauthor
   Cinch::Formatting.format(:silver, "#{@cauthor}")
 end
 
-
 configure do
   set :bind, $config["http"]["host"]
   set :port, $config["http"]["port"]
