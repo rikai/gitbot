@@ -113,7 +113,7 @@ post "/github" do
   push["commits"][0..4].each do |c|
     message = c["message"]
     @commit = c["id"][0..7]
-    @cauthor = c["author"]["name"]
+    @cauthor = c["author"]["username"]
 
     if message.include? "\n\n"
       message1, match, message2 = message.rpartition(/\n\n/)
