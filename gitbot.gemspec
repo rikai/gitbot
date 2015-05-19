@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.default_executable = %q{gitbot}
 
-  s.add_runtime_dependency(%q<cinch>, ["~> 1.0.0"])
+  s.add_runtime_dependency(%q<cinch>, ["~> 2.0.0"])
   s.add_runtime_dependency(%q<sinatra>, ["~> 1.1.0"])
   s.add_runtime_dependency(%q<json>, [">= 0"])
   
