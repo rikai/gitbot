@@ -78,13 +78,24 @@ post "/github" do
     ta <=> tb
   end
 
-  # output first 3 commits
-  push["commits"][0..2].each do |c|
-    say repo, "\0030#{repo}:\0037 #{branch}\0033 #{c["author"]["name"]}\003 #{c["message"]}"
+    # output first 5 commits
+  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + get_repo(repo) + "#{Cinch::Formatting.format(:Black, ']')} " + get_author(author) + " pushed #{commits.length} new commit#{commits.count == 1 ? '' : 's'} to " + get_branch(branch) + ": #{commiturl}"
+  push["commits"][0..4].each do |c|
+    message = c["message"]
+    @commit = c["id"][0..7]
+    @cauthor = c["author"]["name"]
+
+    if message.include? "\n\n"
+      message1, match, message2 = message.rpartition(/\n\n/)
+    else
+      message1 = message
+    end
+                    
+    say repo, get_repo(repo) + "/" + get_branch(branch) + " " + get_commit + " " + get_cauthor + ": #{message1}"
   end
 
-  if push["commits"].length-2 > 0
-    say repo, "\0030#{repo}:\0037 #{branch}\003 ... and #{push["commits"].length-2} more"
+  if push["commits"].length-5 > 0
+    say repo, get_repo(repo) + "/" + get_branch(branch) + " ...and #{push["commits"].length-5} more @ #{commiturl}"
   end
 
   push.inspect
