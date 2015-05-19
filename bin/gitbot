@@ -38,6 +38,27 @@ def say(repo,msg)
   end
 end
 
+def get_repo(repo)
+  Cinch::Formatting.format(:green, "#{repo}")
+  end
+
+def get_author(author)
+  Cinch::Formatting.format(:silver, "#{author}")
+end
+
+def get_branch(branch)
+  Cinch::Formatting.format(:orange, "#{branch}")
+end
+
+def get_commit
+  Cinch::Formatting.format(:grey, "#{@commit}")
+end
+
+def get_cauthor
+  Cinch::Formatting.format(:silver, "#{@cauthor}")
+end
+
+
 configure do
   set :bind, $config["http"]["host"]
   set :port, $config["http"]["port"]
@@ -78,7 +99,7 @@ post "/github" do
     ta <=> tb
   end
 
-    # output first 5 commits
+  # output first 5 commits
   say repo, "#{Cinch::Formatting.format(:Black, '[')}" + get_repo(repo) + "#{Cinch::Formatting.format(:Black, ']')} " + get_author(author) + " pushed #{commits.length} new commit#{commits.count == 1 ? '' : 's'} to " + get_branch(branch) + ": #{commiturl}"
   push["commits"][0..4].each do |c|
     message = c["message"]
