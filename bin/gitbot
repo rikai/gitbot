@@ -55,6 +55,10 @@ post "/github" do
 
   repo = push["repository"]["name"]
   branch = push["ref"].gsub(/^refs\/heads\//,"")
+  commiturl = Gitio.shorten push["compare"]
+  author = push["head_commit"]["author"]["username"]
+  gitip = push["head_commit"]
+  commits = push["commits"]
 
   # sort commits by timestamp
   push["commits"].sort! do |a,b|
