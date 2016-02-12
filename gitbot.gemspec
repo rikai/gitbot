@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<cinch>, ["~> 2.0.0"])
   s.add_runtime_dependency(%q<sinatra>, ["~> 1.1.0"])
   s.add_runtime_dependency(%q<json>, [">= 0"])
+  s.add_runtime_dependency(%q<gitio>, [">= 0"])
 
   s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
 
