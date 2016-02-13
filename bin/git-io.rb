@@ -2,7 +2,7 @@ require 'net/http'
 
 module Git
   module IO
-    URL = URI 'http://git.io'
+    URL = URI 'https://git.io'
 
     class Error < RuntimeError; end
 
