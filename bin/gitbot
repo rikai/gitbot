@@ -119,6 +119,10 @@ configure do
   set :lock, true
 end
 
+#############
+# Webserver #
+#############
+
 get "/" do
   "GitBot lives here. Direct your hooks to /github."
 end
