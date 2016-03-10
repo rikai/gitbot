@@ -43,6 +43,12 @@ def say(repo,msg)
   end
 end
 
+##############
+# Formatting #
+##############
+
+## TODO: Combine these where possible
+
 def get_repo(repo)
   Cinch::Formatting.format(:green, "#{repo}")
 end
@@ -61,6 +67,30 @@ end
 
 def get_cauthor
   Cinch::Formatting.format(:silver, "#{@cauthor}")
+end
+
+def format_prtitle(data)
+  Cinch::Formatting.format(:teal, "#{data["pull_request"]["title"]}")
+end
+
+def format_prnumber(data)
+  Cinch::Formatting.format(:orange, "##{data["pull_request"]["number"]}")
+end
+
+def format_prhead(data)
+  Cinch::Formatting.format(:red, "#{data["pull_request"]["head"]["ref"]}")
+end
+
+def format_prbase(data)
+ Cinch::Formatting.format(:red, "#{data["pull_request"]["base"]["ref"]}")
+end
+
+def format_issuenumber(data)
+  Cinch::Formatting.format(:orange, "##{data["issue"]["number"]}")
+end
+
+def format_issuetitle(data)
+  Cinch::Formatting.format(:teal, "#{data["issue"]["title"]}")
 end
 
 configure do
