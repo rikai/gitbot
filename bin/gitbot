@@ -125,6 +125,74 @@ def format_issueurl(data)
   Git.io.generate data["issue"]["html_url"]
 end
 
+##################
+# Received Hooks #
+##################
+
+## TODO: Add more hooks, add placeholders, consolidate repo variable
+
+def get_create(data)
+  halt 501, "Not yet implemented, how pitiful."
+end
+
+def get_delete(data)
+  halt 501, "Not yet implemented, how pitiful."
+end
+
+def get_issues(data)
+  repo = data["repository"]["name"]
+
+  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} issue " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+end
+
+def get_pull_request(data)
+  repo = data["repository"]["name"]
+
+  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_prauthor(data) + " #{data["action"]} pull request " + format_prnumber(data) + ": " + format_prtitle(data) + " (" + format_prhead(data) + " \u{2192} " + format_prbase(data) + ") @ " + format_prurl(data)
+end
+
+def get_push(data)
+  repo = data["repository"]["name"]
+
+  # sort commits by timestamp
+  data["commits"].sort! do |a,b|
+    ta = tb = nil
+    begin
+      ta = DateTime.parse(a["timestamp"])
+    rescue ArgumentError
+      ta = Time.at(a["timestamp"].to_i)
+    end
+
+    begin
+      tb = DateTime.parse(b["timestamp"])
+    rescue ArgumentError
+      tb = Time.at(b["timestamp"].to_i)
+    end
+
+    ta <=> tb
+  end
+
+  # output first 5 commits
+  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " pushed #{data["commits"].length} new commit#{data["commits"].count == 1 ? '' : 's'} to " + format_branch(data) + ": " + format_commiturl(data)
+  data["commits"][0..4].each do |c|
+    message = c["message"]
+
+    if message.include? "\n\n"
+      message1, match, message2 = message.rpartition(/\n\n/)
+    else
+      message1 = message
+    end
+
+    say repo, format_repo(data) + "/" + format_branch(data) + " " + format_commit(c) + " " + format_cauthor(c) + ": #{message1}"
+  end
+
+  if data["commits"].length-5 > 0
+    say repo, format_repo(data) + "/" + format_branch(data) + " ...and #{data["commits"].length-5} more @ " +  + format_commiturl(data)
+  end
+
+#  data.inspect
+end
+
 configure do
   set :bind, $config["http"]["host"]
   set :port, $config["http"]["port"]
