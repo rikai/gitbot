@@ -62,24 +62,24 @@ end
 
 ## TODO: Combine these where possible
 
-def get_repo(repo)
-  Cinch::Formatting.format(:green, "#{repo}")
+def format_repo(data)
+  Cinch::Formatting.format(:green, "#{data["repository"]["name"]}")
 end
 
-def get_author(author)
-  Cinch::Formatting.format(:silver, "#{author}")
+def format_author(data)
+  Cinch::Formatting.format(:silver, "#{data["sender"]["login"]}")
 end
 
-def get_branch(branch)
-  Cinch::Formatting.format(:orange, "#{branch}")
+def format_branch(data)
+  Cinch::Formatting.format(:orange, "#{data["ref"].gsub(/^refs\/heads\//,"")}")
 end
 
-def get_commit
-  Cinch::Formatting.format(:grey, "#{@commit}")
+def format_commit(c)
+  Cinch::Formatting.format(:grey, "#{c["id"][0..7]}")
 end
 
-def get_cauthor
-  Cinch::Formatting.format(:silver, "#{@cauthor}")
+def format_cauthor(c)
+  Cinch::Formatting.format(:silver, "#{c["author"]["username"]}")
 end
 
 def format_prtitle(data)
