@@ -43,6 +43,19 @@ def say(repo,msg)
   end
 end
 
+def verify_signature(payload_body)
+  signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), $config["github"]["secret"], payload_body)
+  return halt 500, "Signature mosmatch" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
+end
+
+def ignored?(event, data)
+  return false unless $config.key?(:ignore) && $config[:ignore].key?(event)
+  return true if $config[:ignore][event].empty?
+  match = (event == 'create' || event == 'delete') ? :ref_type : :action
+  return true if $config[:ignore][event].include? data[match]
+  false
+end
+
 ##############
 # Formatting #
 ##############
