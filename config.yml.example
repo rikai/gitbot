@@ -22,3 +22,16 @@ http:
 filters:
     "#someproject": [only_this_repo, and_that_repo]
 
+# By default GitBot will announce all commit types. You can
+# limit types to only those specified by adding a type filter
+# These types are defined in the api, a few examples are
+# shown below
+
+exclude:
+  "issues": [ "labeled", "unlabeled" ]
+  "pull_request": [ "labeled", "unlabeled"]
+
+# This is where your github webook secret goes
+
+github:
+    secret: examplesecret
