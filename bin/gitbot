@@ -93,6 +93,25 @@ def format_issuetitle(data)
   Cinch::Formatting.format(:teal, "#{data["issue"]["title"]}")
 end
 
+#####################
+# Git.io generation #
+#####################
+
+### TODO: Combine these
+
+def format_commiturl(data)
+  Git.io.generate data["compare"]
+end
+
+def format_prurl(data)
+  Git.io.generate data["pull_request"]["html_url"]
+end
+
+
+def format_issueurl(data)
+  Git.io.generate data["issue"]["html_url"]
+end
+
 configure do
   set :bind, $config["http"]["host"]
   set :port, $config["http"]["port"]
