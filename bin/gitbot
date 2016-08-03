@@ -141,14 +141,70 @@ end
 # Received Hooks #
 ##################
 
+## Documented @ https://developer.github.com/v3/activity/events/types/
 ## TODO: Add more hooks, add placeholders, consolidate repo variable
+
+# Created {repository, branch, tag}
 
 def get_create(data)
   halt 501, "Not yet implemented, how pitiful."
+  puts "Create: Not yet implemented, how pitiful."
 end
+
+# Deleted {branch, tag}
 
 def get_delete(data)
   halt 501, "Not yet implemented, how pitiful."
+  puts "Delete: Not yet implemented, how pitiful."
+end
+
+# Deployments
+
+def get_deployment(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Deployment: Not yet implemented, how pitiful."
+end
+
+# Deployment Status
+
+def get_deployment_status(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Deployment Status: Not yet implemented, how pitiful."
+end
+
+# Downloads
+
+def get_download(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Download: Not yet implemented, how pitiful."
+end
+
+# When a user follows another user. (Deprecated?)
+
+def get_follow(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Follow: Not yet implemented, how pitiful."
+end
+
+# Forked Repo
+
+def get_fork(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Fork: Not yet implemented, how pitiful."
+end
+
+# Wiki {Created, Updated}
+
+def get_gollum(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Gollum/Wiki: Not yet implemented, how pitiful."
+end
+
+# Comment on {issue}
+
+def get_issue_comment(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Issue Comment: Not yet implemented, how pitiful."
 end
 
 # {opened,closed,reopened} issues
@@ -159,6 +215,34 @@ def get_issues(data)
   say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} issue " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
 end
 
+# Added Collaborator
+
+def get_member(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Member (Collaborator): Not yet implemented, how pitiful."
+end
+
+# Added user to team
+
+def get_membership(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Membership (Team): Not yet implemented, how pitiful."
+end
+
+# Github Pages build attempt
+
+def get_page_build(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Github Pages Build: Not yet implemented, how pitiful."
+end
+
+# When a private repository is open sourced
+
+def get_public(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Public Publish: Not yet implemented, how pitiful."
+end
+
 # {opened,closed,reopened} PRs
 
 def get_pull_request(data)
@@ -167,13 +251,14 @@ def get_pull_request(data)
   say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_prauthor(data) + " #{data["action"]} pull request " + format_prnumber(data) + ": " + format_prtitle(data) + " (" + format_prhead(data) + " \u{2192} " + format_prbase(data) + ") @ " + format_prurl(data)
 end
 
-# Comment on issue
+#  Comment on a Pull Request's unified diff is {created, edited, deleted}
 
-def get_issue_comment(data)
+def get_pull_request_review_comment(data)
   halt 501, "Not yet implemented, how pitiful."
+  puts "Pull Request Diff Comment: Not yet implemented, how pitiful."
 end
 
-# {pushed,force-pushed,} commits
+# {pushed,force-pushed} commits
 
 def get_push(data)
   repo = data["repository"]["name"]
@@ -216,6 +301,41 @@ def get_push(data)
 
 ## Debugging
 #  data.inspect
+end
+
+# Release published
+
+def get_release(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Release: Not yet implemented, how pitiful."
+end
+
+# Repository {created, deleted, made public, made private}
+
+def get_repository(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Repository: Not yet implemented, how pitiful."
+end
+
+# Staus of git commit changes
+
+def get_status(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Git commit status: Not yet implemented, how pitiful."
+end
+
+# Repo added to team
+
+def get_team_add(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Team Add: Not yet implemented, how pitiful."
+end
+
+# Starring a repository, not watching. Explanation @ https://developer.github.com/changes/2012-09-05-watcher-api/
+
+def get_watch(data)
+  halt 501, "Not yet implemented, how pitiful."
+  puts "Watch: Not yet implemented, how pitiful."
 end
 
 #############
