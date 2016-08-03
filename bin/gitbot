@@ -151,17 +151,29 @@ def get_delete(data)
   halt 501, "Not yet implemented, how pitiful."
 end
 
+# {opened,closed,reopened} issues
+
 def get_issues(data)
   repo = data["repository"]["name"]
 
   say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} issue " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
 end
 
+# {opened,closed,reopened} PRs
+
 def get_pull_request(data)
   repo = data["repository"]["name"]
 
   say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_prauthor(data) + " #{data["action"]} pull request " + format_prnumber(data) + ": " + format_prtitle(data) + " (" + format_prhead(data) + " \u{2192} " + format_prbase(data) + ") @ " + format_prurl(data)
 end
+
+# Comment on issue
+
+def get_issue_comment(data)
+  halt 501, "Not yet implemented, how pitiful."
+end
+
+# {pushed,force-pushed,} commits
 
 def get_push(data)
   repo = data["repository"]["name"]
