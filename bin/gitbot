@@ -137,6 +137,10 @@ def format_issueurl(data)
   Git.io.generate data["issue"]["html_url"]
 end
 
+def format_commenturl(data)
+  Git.io.generate data["comment"]["html_url"]
+end
+
 ##################
 # Received Hooks #
 ##################
@@ -203,8 +207,9 @@ end
 # Comment on {issue}
 
 def get_issue_comment(data)
-  halt 501, "Not yet implemented, how pitiful."
-  puts "Issue Comment: Not yet implemented, how pitiful."
+  repo = data["repository"]["name"]
+
+  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} a comment on " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_commenturl(data)
 end
 
 # {opened,closed,reopened} issues
