@@ -212,12 +212,19 @@ def get_issue_comment(data)
   say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} a comment on " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_commenturl(data)
 end
 
-# {opened,closed,reopened} issues
+# {opened,edited,closed,reopened,assigned,unassigned,labeled,unlabeled} issues
+# TODO: Consolidate multiple label events on an issue into a single irc output
 
 def get_issues(data)
   repo = data["repository"]["name"]
 
-  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} issue " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+  if data['action'].match(/^labeled$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " added label #{data['label']['name']} to " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+  elsif data['action'].match(/^unlabeled$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " removed label #{data['label']['name']} from " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+  else
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} issue " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+  end
 end
 
 # Added Collaborator
