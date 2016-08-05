@@ -118,6 +118,14 @@ def format_issuetitle(data)
   Cinch::Formatting.format(:teal, "#{data["issue"]["title"]}")
 end
 
+def format_issueassigner(data)
+  Cinch::Formatting.format(:silver, "#{data["issue"]["user"]["login"]}")
+end
+
+def format_issueassignee(data)
+  Cinch::Formatting.format(:silver, "#{data["assignee"]["login"]}")
+end
+
 #####################
 # Git.io generation #
 #####################
@@ -208,22 +216,39 @@ end
 
 def get_issue_comment(data)
   repo = data["repository"]["name"]
+  action = data["action"]
 
-  say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} a comment on " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_commenturl(data)
+  if action.match(/^created$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " added a comment to " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_commenturl(data)
+  elsif action.match(/^edited$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} a comment on " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_commenturl(data)
+  else action.match(/^deleted$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} a comment from " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_commenturl(data)
+  end
 end
 
 # {opened,edited,closed,reopened,assigned,unassigned,labeled,unlabeled} issues
-# TODO: Consolidate multiple label events on an issue into a single irc output
+# TODO: Consolidate multiple label/assignment events on an issue into a single irc output
 
 def get_issues(data)
   repo = data["repository"]["name"]
+  action = data["action"]
 
-  if data['action'].match(/^labeled$/)
+  if action.match(/^labeled$/)
     say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " added label #{data['label']['name']} to " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
-  elsif data['action'].match(/^unlabeled$/)
+
+  elsif action.match(/^unlabeled$/)
     say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " removed label #{data['label']['name']} from " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+
+  elsif action.match(/^assigned$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_issueassigner(data) + " assigned " + format_issuenumber(data) + ": " + format_issuetitle(data) + " to " + format_issueassignee(data) + " @ " + format_issueurl(data)
+
+  elsif action.match(/^unassigned$/)
+    say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_issueassigner(data) + " unassigned " + format_issuenumber(data) + ": " + format_issuetitle(data) + " from " + format_issueassignee(data) + " @ " + format_issueurl(data)
+
   else
     say repo, "#{Cinch::Formatting.format(:Black, '[')}" + format_repo(data) + "#{Cinch::Formatting.format(:Black, ']')} " + format_author(data) + " #{data["action"]} issue " + format_issuenumber(data) + ": " + format_issuetitle(data) + " @ " + format_issueurl(data)
+
   end
 end
 
