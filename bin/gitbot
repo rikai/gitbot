@@ -390,6 +390,13 @@ get "/" do
   "GitBot lives here. Direct your hooks to /github."
 end
 
+# You get nothing! You lose! Good day, sir!
+get "/github" do
+  204
+end
+
+# The good stuff
+
 post "/github" do
   request.body.rewind
   payload_body = request.body.read
@@ -400,4 +407,18 @@ post "/github" do
   return halt 202, "Ignored: #{event}" if ignored?(event, data)
   send "get_#{event}", data
   return halt 200
+end
+
+# We dont support these
+
+put "/github" do
+  400
+end
+
+delete "/github" do
+  400
+end
+
+patch "/github" do
+  400
 end
