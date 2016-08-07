@@ -333,7 +333,7 @@ def get_push(data)
   end
 
   if data["commits"].length-5 > 0
-    say repo, format_repo(data) + "/" + format_branch(data) + " ...and #{data["commits"].length-5} more @ " +  + format_commiturl(data)
+    say repo, format_repo(data) + "/" + format_branch(data) + " ...and #{data["commits"].length-5} more @ " + format_commiturl(data)
   end
 
 ## Debugging
