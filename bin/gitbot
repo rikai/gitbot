@@ -94,6 +94,10 @@ def format_cauthor(c)
   Cinch::Formatting.format(:silver, "#{c["author"]["username"]}")
 end
 
+def format_prauthor(data)
+  format_author(data)
+end
+
 def format_prtitle(data)
   Cinch::Formatting.format(:teal, "#{data["pull_request"]["title"]}")
 end
