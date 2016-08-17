@@ -123,7 +123,7 @@ def format_issuetitle(data)
 end
 
 def format_issueassigner(data)
-  Cinch::Formatting.format(:silver, "#{data["issue"]["user"]["login"]}")
+  Cinch::Formatting.format(:silver, "#{data["sender"]["login"]}")
 end
 
 def format_issueassignee(data)
